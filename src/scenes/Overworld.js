@@ -120,7 +120,7 @@ class Overworld extends Phaser.Scene {
 
     // play music
     // pixabay SoulProdMusic Sinister Night / Halloween Trap Hip Hop Music
-    this.sound.play('gameBackground', {volume: .25, loop: true});
+    this.sound.play('gameBackground', {volume: .15, loop: true});
 
     // enable collision
     terrainLayer.setCollisionByProperty({collides:true})
