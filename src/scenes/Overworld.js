@@ -92,8 +92,10 @@ class Overworld extends Phaser.Scene {
       })
     })
     this.ghost1.play('spook')
-    this.ghost1.setVelocityX(this.VEL)
+    this.ghost1.setVelocityX(this.VEL * 0.5)
 
+
+    // make ghost phase in and out
     this.tweens.add({
       targets: this.ghost1,
       alpha: {from: 1, to: 0},
@@ -102,6 +104,17 @@ class Overworld extends Phaser.Scene {
       repeat: -1,
       yoyo: true
     });
+
+    // make ghost go back and forth
+    
+
+
+    this.enemyTimer = this.time.addEvent({
+      delay: 1500,
+      callback: this.changeEnemyDirection,
+      callbackScope: this,
+      loop: true
+  });
 
     // this.ghost1.setAlpha(0)
 
@@ -117,6 +130,8 @@ class Overworld extends Phaser.Scene {
     this.physics.add.overlap(this.character, this.ghost1, this.ghostCollision, null, this);
 
     //collision events
+
+    this.ghost1.body.bounce.x = 1;
   
 
 
