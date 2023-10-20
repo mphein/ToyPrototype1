@@ -93,6 +93,16 @@ class Overworld extends Phaser.Scene {
     })
     this.ghost1.play('spook')
     this.ghost1.setVelocityX(this.VEL)
+
+    this.tweens.add({
+      targets: this.ghost1,
+      alpha: {from: 1, to: 0},
+      ease: 'Sine.InOut',
+      duration: 1500,
+      repeat: -1,
+      yoyo: true
+    });
+
     // this.ghost1.setAlpha(0)
 
     // play music
