@@ -45,7 +45,7 @@ class Overworld extends Phaser.Scene {
         end: 15
       })
     })
-    
+
     this.anims.create({
       key: 'walkleft',
       frameRate: 8,
@@ -81,7 +81,7 @@ class Overworld extends Phaser.Scene {
       })
     })
     this.ghost1.play('spook')
-    
+    this.ghost1.setVelocityX(this.VEL)
 
     // play music
     // pixabay SoulProdMusic Sinister Night / Halloween Trap Hip Hop Music
@@ -90,7 +90,7 @@ class Overworld extends Phaser.Scene {
     // enable collision
     terrainLayer.setCollisionByProperty({collides:true})
     this.physics.add.collider(this.character, terrainLayer)
-    this.physics.add.collider(this.ghost1, terrainLayer)
+    this.physics.add.collider(this.ghost1, terrainLayer, this.turnAround, null, this)
 
     this.physics.add.overlap(this.character, this.ghost1, this.ghostCollision, null, this);
 
@@ -131,8 +131,14 @@ class Overworld extends Phaser.Scene {
     this.character.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
   }
 
+  turnAround(ghost, terrain) {
+    ghost.setVelocityX = this.VEL * -1
+  }
+
   // ghostCollision(char, ghost) {
   //   char.
   // }
+
+  
 
 }
