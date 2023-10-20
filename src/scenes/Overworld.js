@@ -14,9 +14,9 @@ class Overworld extends Phaser.Scene {
       frameHeight: 32
     })
     
-    this.load.spritesheet('character', 'Character.png', {
+    this.load.spritesheet('character', 'character.png', {
       frameWidth: 16,
-      frameHeight: 16
+      frameHeight: 24
     })
 
   
@@ -34,11 +34,42 @@ class Overworld extends Phaser.Scene {
     const terrainLayer = map.createLayer('Terrain', tileset, 0, 0)
 
     // add player
-    this.character = this.physics.add.sprite(545, 90, 'character', 0)
+    // https://elv-games.itch.io/free-retro-game-world-sprites?download
+    this.character = this.physics.add.sprite(545, 90, 'character',)
+    this.anims.create({
+      key: 'walkvert',
+      frameRate: 8,
+      repeat: 0,
+      frames: this.anims.generateFrameNumbers('character', {
+        start: 8,
+        end: 15
+      })
+    })
+    
+    this.anims.create({
+      key: 'walkleft',
+      frameRate: 8,
+      repeat: 0,
+      frames: this.anims.generateFrameNumbers('character', {
+        start: 0,
+        end: 7
+      })
+    })
+    this.anims.create({
+      key: 'walkright',
+      frameRate: 8,
+      repeat: 0,
+      frames: this.anims.generateFrameNumbers('character', {
+        start: 24,
+        end: 31
+      })
+    })
+
+
 
 
     // add ghosts
-    //
+    // https://master-blazter.itch.io/ghostspritepack
     this.ghost1 = this.physics.add.sprite(545, 200, 'ghost')
     this.anims.create({
       key: 'spook',
@@ -50,7 +81,6 @@ class Overworld extends Phaser.Scene {
       })
     })
     this.ghost1.play('spook')
-
     
 
     // play music
@@ -60,30 +90,49 @@ class Overworld extends Phaser.Scene {
     // enable collision
     terrainLayer.setCollisionByProperty({collides:true})
     this.physics.add.collider(this.character, terrainLayer)
+    this.physics.add.collider(this.ghost1, terrainLayer)
+
+    this.physics.add.overlap(this.character, this.ghost1, this.ghostCollision, null, this);
+
+    //collision events
+  
+
 
     // cameras
     this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
     this.cameras.main.startFollow(this.character, true, 0.25, 0.25)
     this.physics.world.bounds.setTo(0,0, map.widthInPixels, map.heightInPixels)
-    this.cameras.main.setZoom(1.5,1.5)
+    this.cameras.main.zoomTo(1.5)
+   
 
     //input 
     this.cursors = this.input.keyboard.createCursorKeys()
   }
 
   update() {
+    
     this.direction = new Phaser.Math.Vector2(0)
     if (this.cursors.left.isDown) {
       this.direction.x = -1
+      this.character.play('walkleft', true)
     } else if (this.cursors.right.isDown) {
       this.direction.x = 1
+      this.character.play('walkright', true)
     }
     if (this.cursors.up.isDown) {
       this.direction.y = -1
+      this.character.play('walkvert', true)
+
     } else if (this.cursors.down.isDown) {
       this.direction.y = 1
+      this.character.play('walkvert', true)
     }
     this.direction.normalize()
     this.character.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
   }
+
+  // ghostCollision(char, ghost) {
+  //   char.
+  // }
+
 }
