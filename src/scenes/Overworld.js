@@ -93,7 +93,7 @@ class Overworld extends Phaser.Scene {
     })
     this.ghost1.play('spook')
     this.ghost1.setVelocityX(this.VEL)
-    this.ghost1.setAlpha(0)
+    // this.ghost1.setAlpha(0)
 
     // play music
     // pixabay SoulProdMusic Sinister Night / Halloween Trap Hip Hop Music
