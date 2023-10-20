@@ -14,7 +14,7 @@ class Overworld extends Phaser.Scene {
       frameHeight: 32
     })
     
-    this.load.spritesheet('character', 'character.png', {
+    this.load.spritesheet('character', 'Character.png', {
       frameWidth: 16,
       frameHeight: 24
     })
