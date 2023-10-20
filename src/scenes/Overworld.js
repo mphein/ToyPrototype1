@@ -26,6 +26,7 @@ class Overworld extends Phaser.Scene {
   }
 
   create() {
+    // https://szadiart.itch.io/rogue-fantasy-catacombs?download
     const map = this.add.tilemap('tilemapJSON')
     const tileset = map.addTilesetImage('tileset', 'tilesetImage')
 
@@ -34,7 +35,7 @@ class Overworld extends Phaser.Scene {
     const terrainLayer = map.createLayer('Terrain', tileset, 0, 0)
 
     // add player
-    // https://elv-games.itch.io/free-retro-game-world-sprites?download
+    // https://schwarnhild.itch.io/peacefulpixels00
     this.character = this.physics.add.sprite(545, 90, 'character',)
     this.anims.create({
       key: 'walkdown',
@@ -92,6 +93,7 @@ class Overworld extends Phaser.Scene {
     })
     this.ghost1.play('spook')
     this.ghost1.setVelocityX(this.VEL)
+    this.ghost1.setAlpha(0)
 
     // play music
     // pixabay SoulProdMusic Sinister Night / Halloween Trap Hip Hop Music
