@@ -37,12 +37,22 @@ class Overworld extends Phaser.Scene {
     // https://elv-games.itch.io/free-retro-game-world-sprites?download
     this.character = this.physics.add.sprite(545, 90, 'character',)
     this.anims.create({
-      key: 'walkvert',
+      key: 'walkdown',
       frameRate: 8,
       repeat: 0,
       frames: this.anims.generateFrameNumbers('character', {
         start: 8,
         end: 15
+      })
+    })
+
+    this.anims.create({
+      key: 'walkup',
+      frameRate: 8,
+      repeat: 0,
+      frames: this.anims.generateFrameNumbers('character', {
+        start: 15,
+        end: 23
       })
     })
 
@@ -121,11 +131,11 @@ class Overworld extends Phaser.Scene {
     }
     if (this.cursors.up.isDown) {
       this.direction.y = -1
-      this.character.play('walkvert', true)
+      this.character.play('walkup', true)
 
     } else if (this.cursors.down.isDown) {
       this.direction.y = 1
-      this.character.play('walkvert', true)
+      this.character.play('walkdown', true)
     }
     this.direction.normalize()
     this.character.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
